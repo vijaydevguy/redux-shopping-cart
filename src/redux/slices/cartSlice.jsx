@@ -41,9 +41,11 @@ const cartSlice = createSlice({
         // state.items.push({ id, qty: 1 });
       }
     },
-    editCartItem: () => {},
-    removeCartItem: () => {},
-    clearCart: () => {},
+    editCartItem: (state, actions) => {},
+    removeCartItem: (state, action) => {},
+    clearCart: (state, action) => {
+      state.items = [];
+    },
   },
 });
 

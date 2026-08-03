@@ -1,17 +1,29 @@
 import React from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { cartItems } from "../redux/selectors/cartSelectors";
 import { data } from "../data";
 import QtyBtn from "../components/QtyBtn";
+import { clearCart } from "../redux/slices/cartSlice";
 
 const Cart = () => {
   const Items = useSelector(cartItems);
 
   // console.log(Items, "testCartItems");
 
+  const dispatch = useDispatch();
+
   return (
     <div className="commonPadding flex flex-col gap-5">
-      <h2 className="font-semibold text-[20px]">Cart</h2>
+      <div className="flex justify-between items-center gap-5">
+        <h2 className="font-semibold text-[20px]">Cart</h2>
+        <button
+          className="text-red-600 text-[18px] cursor-pointer hover:underline disabled:opacity-60 disabled:cursor-not-allowed"
+          onClick={() => dispatch(clearCart())}
+          disabled={Items.length <= 0}
+        >
+          clear cart
+        </button>
+      </div>
       <div className="flex flex-col gap-5">
         {Items.map((item, i) => (
           <div key={i}>
