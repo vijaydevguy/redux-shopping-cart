@@ -3,6 +3,7 @@ import { Routes, Route } from "react-router-dom";
 import Products from "./pages/Products";
 import Cart from "./pages/Cart";
 import Product from "./pages/Product";
+import { Analytics } from "@vercel/analytics/next"
 
 function App() {
   return (
