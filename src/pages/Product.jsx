@@ -11,7 +11,7 @@ const Product = () => {
   // console.log(product);
 
   const dispatch = useDispatch();
-  console.log(id, "testResID");
+  // console.log(id, "testResID");
 
   return (
     <div className="commonPadding grid lg:grid-cols-4 md:grid-cols-3 grid-cols-2 gap-5 gap-y-5">

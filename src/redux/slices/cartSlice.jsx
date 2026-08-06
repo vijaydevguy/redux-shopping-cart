@@ -41,8 +41,41 @@ const cartSlice = createSlice({
         // state.items.push({ id, qty: 1 });
       }
     },
-    editCartItem: (state, actions) => {},
-    removeCartItem: (state, action) => {},
+    editCartItem: (state, action) => {
+      const { restaurantId, item, qty } = action.payload;
+
+      if (state.restaurantId == restaurantId) {
+        const existingItem = state.items.find(
+          (cartItem) => cartItem.id == item.id,
+        );
+
+        if (existingItem) {
+          existingItem.qty = existingItem.qty + qty;
+        }
+      }
+    },
+
+    removeCartItem: (state, action) => {
+      const { restaurantId, item, qty } = action.payload;
+
+      if (state.restaurantId == restaurantId) {
+        const existingItem = state.items.find(
+          (cartItem) => cartItem.id == item.id,
+        );
+
+        if (existingItem) {
+          existingItem.qty = existingItem.qty - qty;
+          
+          if (existingItem.qty <= 0) {
+            state.items = state.items.filter((cartItem) => cartItem.id != item.id);
+            if (state.items.length === 0) {
+              state.restaurantId = null;
+            }
+          }
+        }
+      }
+    },
+    
     clearCart: (state, action) => {
       state.items = [];
     },

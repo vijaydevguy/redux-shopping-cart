@@ -1,12 +1,17 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { cartItems } from "../redux/selectors/cartSelectors";
+import { cartItems,restaurantId } from "../redux/selectors/cartSelectors";
 import { data } from "../data";
 import QtyBtn from "../components/QtyBtn";
-import { clearCart } from "../redux/slices/cartSlice";
+import {
+  clearCart,
+  addToCart,
+  removeCartItem,
+} from "../redux/slices/cartSlice";
 
 const Cart = () => {
   const Items = useSelector(cartItems);
+  const Id = useSelector(restaurantId);
 
   // console.log(Items, "testCartItems");
 
@@ -42,7 +47,11 @@ const Cart = () => {
                   </span>{" "}
                 </p>
                 {/* <p>Qty:{item.qty}</p> */}
-                <QtyBtn qty={item.qty} item={item} />
+                <QtyBtn
+                  qty={item.qty}
+                  item={item}
+                  restaurantId={Id}
+                />
               </div>
             </div>
             <hr className="text-gray-100 mt-4" />
