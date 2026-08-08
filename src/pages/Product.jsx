@@ -1,4 +1,4 @@
-import React, { useReducer } from "react";
+import React, { useReducer, useState } from "react";
 import { useParams } from "react-router-dom";
 import { data } from "../data";
 import { useDispatch, useSelector } from "react-redux";
@@ -19,8 +19,34 @@ const Product = () => {
 
   const dispatch = useDispatch();
   const itemsInCart = useSelector(cartItems);
-  // const resId = useSelector(restaurantId);
+  const resId = useSelector(restaurantId);
   // console.log(id, "testResID");
+
+  const [showModal, setShowModal] = useState(false);
+  const [pendingItem, setPendingItem] = useState(null);
+
+  const handleAddCartItem = (item) => {
+    if (itemsInCart.length > 0 && resId && resId !== id) {
+      console.log("working");
+      setPendingItem(item);
+      setShowModal(true);
+    } else {
+      dispatch(addToCart({ restaurantId: id, item: item }));
+    }
+  };
+
+  const handleAddPendingToCart = () => {
+    if (pendingItem) {
+      dispatch(addToCart({ restaurantId: id, item: pendingItem }));
+    }
+    setShowModal(false);
+    setPendingItem(null);
+  };
+
+  const handleCancel = () => {
+    setPendingItem(null);
+    setShowModal(false);
+  };
 
   return (
     <div className="commonPadding grid lg:grid-cols-4 md:grid-cols-3 grid-cols-2 gap-5 gap-y-5">
@@ -37,9 +63,10 @@ const Product = () => {
               >
                 {!isAdded ? (
                   <button
-                    onClick={() =>
-                      dispatch(addToCart({ restaurantId: id, item: item }))
-                    }
+                    onClick={() => handleAddCartItem(item)}
+                    // onClick={() =>
+                    //   dispatch(addToCart({ restaurantId: id, item: item }))
+                    // }
                     className="hover:cursor-pointer hover:bg-gray-100 py-1.5 font-medium w-full text-center"
                   >
                     Add
@@ -99,6 +126,38 @@ const Product = () => {
           </div>
         );
       })}
+
+      {/* 5. The actual Warning Modal UI */}
+      {/* Bottom Confirmation Banner */}
+      {showModal && (
+        <div className="fixed bottom-0 left-0 right-0 z-50 flex justify-center pb-6 px-4 pointer-events-none">
+          {/* pointer-events-auto re-enables clicking inside the banner itself */}
+          <div className="bg-white p-4 rounded-xl shadow-[0_-4px_20px_rgba(0,0,0,0.15)] max-w-lg w-full flex flex-col sm:flex-row items-center justify-between gap-4 border border-gray-100 pointer-events-auto animate-slide-up">
+            <div className="flex-1 text-sm text-gray-700">
+              <span className="font-semibold text-black block mb-1">
+                Items already in cart
+              </span>
+              Your cart contains items from another restaurant. Start a new cart
+              to add this?
+            </div>
+
+            <div className="flex items-center gap-2 shrink-0">
+              <button
+                onClick={handleCancel}
+                className="px-4 py-2 text-sm font-medium text-gray-600 hover:bg-gray-100 rounded-lg transition-colors"
+              >
+                Cancel
+              </button>
+              <button
+                onClick={handleAddPendingToCart}
+                className="px-4 py-2 text-sm font-medium bg-green-600 text-white hover:bg-green-700 rounded-lg shadow-sm transition-colors"
+              >
+                Yes, start fresh
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

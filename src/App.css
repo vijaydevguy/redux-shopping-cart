@@ -1,5 +1,25 @@
 @import "tailwindcss";
 
+/* 1. Define the animation journey (Keyframes) */
+@keyframes slideUp {
+  from {
+    transform: translateY(
+      100%
+    ); /* Start completely pushed down off the screen */
+    opacity: 0; /* Start completely invisible */
+  }
+  to {
+    transform: translateY(0); /* End exactly where it belongs */
+    opacity: 1; /* End fully visible */
+  }
+}
+
+/* 2. Attach it to your class */
+.animate-slide-up {
+  /* Play the 'slideUp' animation for 0.3 seconds, start fast and slow down (ease-out), and stay there (forwards) */
+  animation: slideUp 0.3s ease-out forwards;
+}
+
 @layer components {
   .commonPadding {
     @apply mx-auto max-w-[1400px] px-4 overflow-x-clip py-12;
