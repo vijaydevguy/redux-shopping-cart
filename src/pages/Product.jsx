@@ -60,7 +60,7 @@ const Product = () => {
                         <IoIosRemove size={16} />
                       )}
                     </button>
-                    <span className="w-6 text-center font-medium flex-shrink-0">
+                    <span className="w-6 text-center font-medium flex-shrink-0 select-none pointer-events-none">
                       {cartItem.qty}
                     </span>
                     <button
