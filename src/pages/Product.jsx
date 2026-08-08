@@ -55,9 +55,9 @@ const Product = () => {
                       className="hover:cursor-pointer hover:bg-gray-100 h-8 w-8 flex items-center justify-center text-[20px] flex-shrink-0"
                     >
                       {cartItem.qty <= 1 ? (
-                        <RiDeleteBin7Line size={14} className="text-red-600"/>
+                        <RiDeleteBin7Line size={14} className="text-red-600" />
                       ) : (
-                        <IoIosRemove size={16}/>
+                        <IoIosRemove size={16} />
                       )}
                     </button>
                     <span className="w-6 text-center font-medium flex-shrink-0">
@@ -71,7 +71,7 @@ const Product = () => {
                       }
                       className="hover:cursor-pointer hover:bg-gray-100 h-8 w-8 flex items-center justify-center text-[20px] flex-shrink-0"
                     >
-                      <IoIosAdd size={16}/>
+                      <IoIosAdd size={16} />
                     </button>
                   </>
                 )}
@@ -85,6 +85,7 @@ const Product = () => {
 
             <div className="flex justify-between gap-2 items-center">
               <h2>{item.name}</h2>
+              <p className="font-bold">₹ {item.price}</p>
               {/* <button
                 className={`cursor-pointer underline ${isAdded ? "text-gray-500 no-underline cursor-not-allowed" : ""}`}
                 disabled={isAdded}
