@@ -2,6 +2,7 @@ import React from "react";
 import { FiShoppingCart } from "react-icons/fi";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import logo from "../assets/logo.jpg";
 import store from "../redux/store";
 import { cartCount } from "../redux/selectors/cartSelectors";
 
@@ -19,7 +20,12 @@ const Navbar = () => {
   return (
     <div className="bg-gray-100 sticky top-0 z-50">
       <div className="commonPadding py-6 flex items-center justify-between gap-6">
-        <Link to={"/"} className="font-bold italic">
+        <Link to={"/"} className="font-bold italic flex items-center gap-2">
+          <img
+            src={logo}
+            alt="img"
+            className="w-12 h-12 rounded-full select-none pointer-events-none object-cover object-center"
+          />{" "}
           Food Corner
         </Link>
         <Link to={"/cart"} className="relative pr-4">

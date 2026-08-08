@@ -2,12 +2,9 @@ import React from "react";
 import { IoIosAdd, IoIosRemove } from "react-icons/io";
 import { useDispatch } from "react-redux";
 import { editCartItem, removeCartItem } from "../redux/slices/cartSlice";
+import { RiDeleteBin7Line } from "react-icons/ri";
 
-const QtyBtn = ({
-  qty = 0,
-  item,
-  restaurantId = null,
-}) => {
+const QtyBtn = ({ qty = 0, item, restaurantId = null }) => {
   const dispatch = useDispatch();
 
   return (
@@ -16,7 +13,11 @@ const QtyBtn = ({
         onClick={() => dispatch(removeCartItem({ restaurantId, item, qty: 1 }))}
         className="hover:cursor-pointer hover:bg-gray-100 h-8 w-8 flex items-center justify-center text-[20px]"
       >
-        <IoIosRemove />
+        {item.qty <= 1 ? (
+          <RiDeleteBin7Line size={14} className="text-red-600" />
+        ) : (
+          <IoIosRemove />
+        )}
       </button>
       <p className="border-x-1 px-3 border-gray-200 select-none pointer-events-none">
         {qty}
